@@ -1,0 +1,7 @@
+$def with (dirlevel2)
+<select name="filter">
+<option value="">Välj sub-katalog</option>
+$for d in dirlevel2:
+    <option>$d</option>
+</select>
+<input type="submit" name="mode" value="Go">

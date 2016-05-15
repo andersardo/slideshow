@@ -1,0 +1,9 @@
+$def with (files)
+<select name="file">
+<option value="">Välj bild</option>
+$for d in files:
+    <option>$d</option>
+</select>
+<button type="button" onclick='send("/showFile?f="+document.showfile.file.options[document.showfile.file.selectedIndex].value);'>
+  Visa
+</button>
