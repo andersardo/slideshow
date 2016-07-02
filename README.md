@@ -10,3 +10,7 @@ all found catalogs. Looping through this it shows all images and videos in order
 A simple Web-server for controling the slideshow program is included. Functions include
 Goto NextDir, Pause, Continue, show image/catalogue, and select a sublist of catalogues
 for viewing based on a substring of the catalogue name.
+
+For sound change /boot/config.txt to allow sound from videos:
+
+hdmi_drive=2
