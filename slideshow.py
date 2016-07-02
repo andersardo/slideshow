@@ -93,10 +93,13 @@ class dataThread(threading.Thread):
         flabel = self.myfont.render(fil, 1, (255,255,0))
         self.screen.fill(self.black)
         if ext in self.imgExt:
-            self.screen.blit(self.aspect_scale(pygame.image.load(dir+'/'+fil),
+            try:
+                self.screen.blit(self.aspect_scale(pygame.image.load(dir+'/'+fil),
                                       (1300,1100)), (0,0))
-            self.screen.blit(self.label, (10, 970))
-            self.screen.blit(self.myfont.render(fil, 1, (255,255,0)), (1000, 970))
+                self.screen.blit(self.label, (10, 970))
+                self.screen.blit(self.myfont.render(fil, 1, (255,255,0)), (1000, 970))
+            except:
+                return
         if wait:
             t = time.time() - t0
             if web.data['intervall'] > t:
@@ -118,7 +121,7 @@ class dataThread(threading.Thread):
             if len(dirList)<1:
                 dirList = dirs.genListRandom()
                 web.data['filter'] = None
-                print('No dirs found with filter %s- reset to all' % (web.data['filter'],) )
+                #print('No dirs found with filter %s- reset to all' % (web.data['filter'],) )
             print('Ant dirs=', len(dirList))
             for r in dirList:
                 #test if r already shown
@@ -151,7 +154,7 @@ class dataThread(threading.Thread):
                     sys.exit()
                 elif web.data['command'] == 'Restart':
                     web.data['command'] = None
-                    print 'Restart', web.data['filter']
+                    #print 'Restart', web.data['filter']
                     break
                 elif web.data['command'] == 'rescan':
                     web.data['command'] = None
