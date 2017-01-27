@@ -1,4 +1,4 @@
-$def with (dirlevel1)
+$def with (dirlevel1, tags)
 
 <html>
   <head>
@@ -47,11 +47,16 @@ function send(url) {
           <input type="submit" name="mode" value="Filter kataloger">
         </form>
 	</td>
-	<td align="right">
-        <form method="get" action="/Exit">
-          <input type="submit" name="mode" value="Exit slideshow">
-        </form>
-	</td>
+  <td align="center">
+      <form method="GET" action="/mediatype?">
+      Show <select name="mediatype">
+          <option value="both">Images and Videos</option>
+          <option value="image">Images</option>
+          <option value="video">Videos</option>
+      </select>
+      <input type="submit" name="mode" value="Select">
+      </form>
+  </td>
       </tr>
       <tr>
 	<td align="center">
@@ -66,10 +71,10 @@ function send(url) {
 	</td>
 	<td align="center">
 	  <form method="get" action="/cont">
-            <input type="submit" name="mode" value="Continue">
+        <input type="submit" name="mode" value="Continue">
           </form> 
 	</td>
-	<td>
+	<td align="center">
           <button type="button" onclick='load("/status", document.getElementById("status"));'>
 	    Status
           </button>
@@ -77,18 +82,44 @@ function send(url) {
 	</td>
       </tr>
      </table>
-
+     <table width="100%" border="0">
+         <tr><td>
     <form action="/restart?" method="GET" name='katalog'>
 Katalog
 <select name="level1"
 onchange='load("/level2?l1="+document.katalog.level1.options[document.katalog.level1.selectedIndex].value, document.getElementById("level2"));'>
 
-<option value="">Välj top-katalog</option>
-$for d in dirlevel1:
+    <option value="">Välj top-katalog</option>
+    $for d in dirlevel1:
     <option>$d</option>
 </select>
 <div id="level2"><i>&lt;kataloger i nivå 2&gt;</i></div>
-</form>
-
+    </form>
+    </td><td>
+      <form action="/showTag?" method="GET" name='tags'>
+          Tags:
+          <select name="cond">
+              <option>OR</option>
+              <option>AND</option>
+          </select>
+          <div style="border:2px solid #ccc; height: 150px; overflow-y: scroll;">
+              $for d in tags:
+                <input type="checkbox" name="$d"> $d<br>
+          </div>
+          Between <input type="text" name="date1" ><br>
+          and <input type="text" name="date2" ><br>
+          <input type="submit" name="mode" value="Go">
+        </form>
+     </td><td align="right">
+             rescan not implemented
+         </td></tr>
+     </table>
+     <table width="100%">
+     <tr><td align="right">
+         <form method="get" action="/Exit">
+             <input type="submit" name="mode" value="Exit slideshow">
+         </form>
+	   </td></tr>
+     </table>
   </body>
 </html>
